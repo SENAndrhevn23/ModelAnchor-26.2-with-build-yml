@@ -1,0 +1,40 @@
+name: Build ModelAnchor JAR
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Compile for Minecraft 26.2
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v7
+
+      - name: Install Java 25
+        uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: gradle
+
+      - name: Build mod JAR
+        run: |
+          chmod +x ./gradlew
+          ./gradlew --no-daemon clean build
+
+      - name: Upload compiled JAR
+        uses: actions/upload-artifact@v7
+        with:
+          name: ModelAnchor-Minecraft-26.2
+          path: |
+            build/libs/*.jar
+            !build/libs/*-sources.jar
+            !build/libs/*-javadoc.jar
+          if-no-files-found: error
+          retention-days: 14
