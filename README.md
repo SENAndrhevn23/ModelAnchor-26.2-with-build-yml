@@ -27,6 +27,10 @@ A client-side Fabric mod starter for importing Wavefront **OBJ** meshes and atta
 - Fabric API **0.155.2+26.2**
 - **Java 25 JDK** (Minecraft 26.2's Fabric metadata requires Java 25 or newer)
 
+## Build configuration note
+
+Minecraft 26.2 uses the non-obfuscated Fabric Loom setup. The build script therefore declares Fabric Loader and Fabric API with Gradle `implementation`, rather than the older `modImplementation` configuration used in older mod templates.
+
 ## Build automatically with GitHub Actions
 
 The included `.github/workflows/build.yml` compiles the mod automatically when you push commits, open or update a pull request, or manually run the workflow. It uses Java 25 and uploads the compiled mod JAR as an artifact.
